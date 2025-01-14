@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Peringkat</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            width: 80%;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4e73df;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #4e73df;
+            color: white;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8f9fc;
+        }
+
+        tr:hover {
+            background-color: #f1f3f7;
+            cursor: pointer;
+            transform: scale(1.01);
+            transition: transform 0.2s ease;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            margin-top: 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #218838;
+        }
+
+        .rank {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .top {
+            color: #ffcc00;
+        }
+
+        .second {
+            color: #e6e6e6;
+        }
+
+        .third {
+            color: #cd7f32;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Daftar Peringkat Teratas JavaScript<p style="margin-top: 0;">Codex IDN</p></h1>
+    <table>
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Name</th>
+                <th>Average Poin</th>
+                <th>Rank</th>
+            </tr>
+        </thead>
+        <tbody id="rankingList">
+            <!-- Daftar peringkat akan ditambahkan di sini menggunakan JavaScript -->
+        </tbody>
+    </table>
+    <button class="btn" onclick="tambahData()">Tambah Peringkat</button>
+</div>
+
+<script>
+    const rankingData = [
+        { name: "MF Ghaly Al Habsyi", points: 98 },
+        { name: "Muhammad Fikri", points: 90 },
+        { name: "Tio Saputra", points: 91 },
+        { name: "Rizal Maha putra", points: 89 },
+        { name: "Arjuna Bagaskara", points: 87 },
+        { name: "Bagas Mahendra", points: 85 },
+        { name: "Ghazali Ardiansyah", points: 83 },
+        { name: "Yudha Aditama", points: 82 },
+        { name: "Raditya Bagaswara", points: 81 },
+        { name: "Rehan Saputra", points: 79 }
+    ];
+
+    function displayRanking() {
+        const rankingList = document.getElementById('rankingList');
+        rankingList.innerHTML = '';
+        rankingData.sort((a, b) => b.points - a.points);
+
+        rankingData.forEach((entry, index) => {
+            const rankClass = index === 0 ? 'top' : (index === 1 ? 'second' : (index === 2 ? 'third' : ''));
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td class="rank ${rankClass}">${index + 1}</td>
+                <td>${entry.name}</td>
+                <td>${entry.points}</td>
+                <td>${rankClass ? rankClass.charAt(0).toUpperCase() + rankClass.slice(1) : ''}</td>
+            `;
+            rankingList.appendChild(row);
+        });
+    }
+
+    function tambahData() {
+        const name = prompt("Masukkan nama:");
+        const points = parseInt(prompt("Masukkan poin:"), 10);
+
+        if (name && !isNaN(points)) {
+            rankingData.push({ name, points });
+            displayRanking();
+        } else {
+            alert("Data tidak valid!");
+        }
+    }
+
+    // Tampilkan peringkat pertama kali
+    displayRanking();
+</script>
+
+</body>
+</html>
